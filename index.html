@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#13243a"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Shyaam Library">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<title>श्री Shyaam Library</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="brand">📚 <span>श्री Shyaam Library</span></div><button id="backupBtn" class="light">Export Backup</button></header>
+<main>
+<section class="stats">
+ <div><small>Students</small><strong id="count">0</strong></div>
+ <div><small>Collected this month</small><strong id="collected">₹0</strong></div>
+ <div><small>Pending this month</small><strong id="pending">₹0</strong></div>
+</section>
+<nav>
+<button class="tab active" data-tab="students">Students</button><button class="tab" data-tab="fees">Fees</button><button class="tab" data-tab="seats">Seats</button><button class="tab" data-tab="rules">Rules</button>
+</nav>
+<section id="students" class="panel active">
+ <div class="sectionhead"><h2>Students</h2><button id="addBtn">+ Add student</button></div>
+ <input id="search" placeholder="Search student by name or phone">
+ <div id="studentList" class="list"></div>
+</section>
+<section id="fees" class="panel">
+ <h2>Fee collection</h2><p class="muted">Select a student and record a payment for the current month.</p>
+ <label>Student<select id="feeStudent"></select></label>
+ <label>Amount received (₹)<input id="feeAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 500"></label>
+ <button id="payBtn">Record payment</button>
+ <h3>Current month status</h3><div id="feeList" class="list"></div>
+</section>
+<section id="seats" class="panel">
+ <h2>Seat allocation</h2><p class="muted">50 seats · assign or clear a seat from a student profile.</p><div id="seatGrid" class="seatgrid"></div>
+</section>
+<section id="rules" class="panel">
+ <h2>Library rules</h2><ol><li>Fees must be paid at the beginning of the month.</li><li>Bringing friends inside the library is strictly prohibited.</li><li>If fees are not paid, the seat must be vacated.</li><li>No refund or adjustment of fees.</li><li>Student is responsible for repairing a damaged chair.</li></ol>
+ <hr><button id="restoreBtn" class="light">Restore backup</button><input id="restoreFile" type="file" accept="application/json" hidden>
+ <p class="muted tiny">Data is stored on this device's browser. Export backups regularly. Clearing Safari website data can erase records.</p>
+</section>
+</main>
+<dialog id="studentDialog">
+<form method="dialog" id="studentForm"><h2 id="dialogTitle">Add student</h2>
+<input type="hidden" id="studentId">
+<label>Full name<input id="studentName" required maxlength="80"></label>
+<label>Phone number (with country code for WhatsApp)<input id="studentPhone" inputmode="tel" placeholder="91XXXXXXXXXX"></label>
+<label>Fee plan<select id="studentPlan"><option value="Day">Day — ₹500</option><option value="Day-Night">Day-Night — ₹750</option><option value="Night">Night — ₹350</option></select></label>
+<label>Seat number (optional)<select id="studentSeat"><option value="">No seat</option></select></label>
+<div class="actions"><button type="button" class="light" id="cancelStudent">Cancel</button><button id="saveStudent">Save student</button></div>
+</form></dialog>
+<dialog id="receiptDialog"><div id="receiptContent"></div><div class="actions"><button class="light" id="closeReceipt">Close</button><button id="printReceipt">Print / Save PDF</button></div></dialog>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body></html>
